@@ -1,0 +1,100 @@
+$bg: black;
+$fg: white;
+$time: 1250ms;
+
+.wrapper {
+	position: absolute;
+	top: 50%; left: 50%;
+	transform: translate(-50%, -50%);
+	width: 200px;
+   height: calc(200px * 1.618);
+	border: 1px solid $fg;
+	transform-origin: 50%, 50%;
+	animation: wrapper $time alternate infinite ease-out;
+}
+
+@keyframes wrapper {
+	50% { border-color: transparent; }
+	100% { border-color: transparent; }
+}
+
+.out {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.rect {
+	background: $fg;
+	color: $fg;
+	border: 1px solid;
+	&.invert {
+		background: $bg;
+		color: #ddd;
+	}
+}
+
+$rects: (
+	( size: (80px, 15px), kf: (0, 15px, -80px, -100px, -100px, 100ms) ),
+	( size: (10px, 50px), kf: (20, 10px, 10px, -40px, 130px, -100ms) ),
+	( size: (40px, 10px), kf: (25, 105px, 25px, 10px, 10px, 250ms) ),
+	( size: (50px, 15px), kf: (10, 30px, -80px, -50px, -50px, 300ms) ),
+	( size: (15px, 70px), kf: (5, -10px, -10px, -10px, -150px) ),
+	( size: (5px, 5px), kf: (15, -20px, -135px, 10px, 10px, 100ms) ),
+	( size: (10px, 70px), kf: (35, 10px, 10px, -90px, -180px, -150ms) ),
+	( size: (5px, 80px), kf: (15, -10px, -10px, -45px, 120px) ),
+	( size: (5px, 40px), kf: (15, 30px, 30px, -50px, -120px, 50ms) ),
+	( size: (15px, 20px), kf: (15, -20px, -20px, 40px, -120px, 400ms) ),
+	( size: (60px, 10px), kf: (5, 20px, -60px, 70px, 70px) ),
+	( size: (15px, 15px), kf: (25, -25px, 65px, 90px, 90px, 250ms) ),
+	( size: (15px, 60px), kf: (15, 30px, 30px, 20px, -50px, 150ms) ),
+	( size: (40px, 10px), kf: (15, 5px, 125px, 50px, 50px, -50ms) ),
+	( size: (65px, 10px), kf: (0, 35px, 155px, 30px, 30px, -300ms) ),
+	( size: (45px, 5px), kf: (5, 35px, -100px, -20px, -20px) ),
+	( size: (5px, 100px), kf: (30, 5px, 5px, -0px, -180px, 50ms) ),
+	( size: (30px, 5px), kf: (35, -5px, 75px, -35px, -35px, 75ms) ),
+	( size: (10px, 60px), kf: (45, 15px, 15px, 40px, -40px, -75ms) ),
+	( size: (10px, 50px), kf: (5, 10px, 10px, 85px, 170px, 400ms) ),
+	( size: (15px, 40px), kf: (25, -30px, -30px, -5px, 150px, 150ms) ),
+	( size: (5px, 70px), kf: (15, -60px, -60px, -140px, -5px) ),
+	( size: (5px, 30px), kf: (0, 60px, 60px, 5px, 120px, 50ms) ),
+	( size: (45px, 15px), kf: (35, 10px, -90px, 20px, 20px) ),
+	( size: (45px, 15px), kf: (35, -15px, 80px, -70px, -70px, -100ms) ),
+	( size: (35px, 15px), kf: (0, -15px, 60px, -15px, -15px, 200ms) ),
+	( size: (15px, 45px), kf: (0, 20px, 20px, -15px, 45px, 250ms) ),
+	( size: (45px, 15px), kf: (5, 15px, -80px, 95px, 95px, -100ms) )
+);
+
+@for $i from 1 through length($rects) {
+	$vals: nth($rects, $i);
+	$size: map-get($vals, size);
+	$kf: map-get($vals, kf);
+
+	$start: nth($kf, 1);
+	$sX: nth($kf, 2);
+	$eX: nth($kf, 3);
+	$sY: nth($kf, 4);
+	$eY: nth($kf, 5);
+
+	.v#{$i} {
+		width: nth($size, 1);
+		height: nth($size, 2);
+		transform: translate3d($sX, $sY, 0);
+		animation: v#{$i} $time alternate infinite ease-in-out;
+		
+		@if length($kf) == 6 {
+			animation-delay: nth($kf, 6);
+		}
+	}
+	
+	@keyframes v#{$i} {
+		#{$start}% {
+			transform: translate3d($sX, $sY, 0);
+		}
+		100% {
+			transform: translate3d($eX, $eY, 0);
+			border-color: $bg;
+		}
+	}
+}

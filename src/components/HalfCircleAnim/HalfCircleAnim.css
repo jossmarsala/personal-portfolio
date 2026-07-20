@@ -1,0 +1,97 @@
+.hc-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  
+  /* Scale properties */
+  --circle-width: min(70vw, 90vh);
+  --small-circle-width: calc(var(--circle-width) * 0.36);
+  --dot-width: 1.5vmin; /* bigger dots */
+  
+  /* Colors */
+  --wireframe-color: rgba(255, 255, 255, 0.15);
+  --default-dot: rgba(255, 255, 255, 0.3);
+  --anim-dur: 4s;
+}
+
+.hc-circle {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  width: var(--circle-width);
+  height: var(--circle-width);
+  border-radius: 50%;
+  position: relative;
+  /* Shift left to center the semi-circle on the left edge */
+  transform: translateX(-50%);
+}
+
+.hc-grid-mask {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  overflow: hidden;
+  opacity: 0.65;
+}
+
+.hc-small-circle {
+  color: transparent;
+  border: 1px solid currentColor;
+  width: var(--small-circle-width);
+  height: var(--small-circle-width);
+  border-radius: 50%;
+  position: absolute;
+  top: calc(var(--circle-width) / 2 - var(--small-circle-width) / 2);
+  left: calc(var(--circle-width) / 2 - var(--small-circle-width) / 2);
+  transform-origin: center;
+  transform: rotate(var(--rot)) translateX(calc(var(--circle-width) / 2));
+  animation: hc-fade var(--anim-dur) infinite;
+  animation-delay: var(--delay);
+}
+
+.hc-small-circle::before,
+.hc-small-circle::after {
+  content: "";
+  display: block;
+  position: absolute;
+  animation: hc-half-rotation var(--anim-dur) infinite;
+  animation-delay: var(--delay);
+}
+
+.hc-small-circle::before {
+  background: var(--curr-dot-color, var(--default-dot));
+  width: var(--dot-width);
+  height: var(--dot-width);
+  border-radius: 50%;
+  top: calc(-1 * var(--dot-width) / 2);
+  left: calc(var(--small-circle-width) / 2 - var(--dot-width) / 2);
+  box-shadow: 0 var(--small-circle-width) var(--curr-dot-color, var(--default-dot));
+  transform-origin: calc(var(--dot-width) / 2) calc(var(--small-circle-width) / 2 + var(--dot-width) / 2);
+}
+
+.hc-small-circle::after {
+  border-left: 1px solid currentColor;
+  height: 100%;
+  left: calc(var(--small-circle-width) / 2);
+}
+
+.hc-small-circle.is-colored {
+  /* uses inline --curr-dot-color */
+}
+
+@keyframes hc-half-rotation {
+  50% { transform: rotate(180deg); }
+  100% { transform: rotate(180deg); }
+}
+
+@keyframes hc-fade {
+  0% { color: transparent; }
+  15% { color: var(--wireframe-color); }
+  30% { color: transparent; }
+}

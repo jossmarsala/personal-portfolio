@@ -1,0 +1,505 @@
+/* ============================================================
+   DESAFÍO PAGE — Form & Found Editorial Layout
+   Standard vertical scroll · No snap navigation
+   ============================================================ */
+
+/* ── Root container ── */
+.desafio-root {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* Standard scroll — no snap */
+}
+
+/* ============================================================
+   TOP BAR — Volver + Theory pills
+   ============================================================ */
+.desafio-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem clamp(1.5rem, 4vw, 4rem);
+  background: transparent;
+  mix-blend-mode: normal;
+  pointer-events: none;
+}
+
+.desafio-topbar > * {
+  pointer-events: auto;
+}
+
+.desafio-volver {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  text-decoration: none;
+  opacity: 0.45;
+  transition: opacity 0.2s ease, gap 0.2s ease;
+}
+
+.desafio-volver:hover {
+  opacity: 1;
+  gap: 0.7rem;
+}
+
+.desafio-volver-arrow {
+  font-size: 1em;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+
+.desafio-volver:hover .desafio-volver-arrow {
+  transform: translateX(-3px);
+}
+
+.desafio-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.desafio-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  background: transparent;
+  color: var(--color-ink);
+  border: 1px solid rgba(17, 17, 17, 0.35);
+  transition: transform 0.18s var(--ease-spring), box-shadow 0.18s ease, opacity 0.18s ease;
+  opacity: 0.65;
+  cursor: default;
+}
+
+.desafio-pill:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+/* ============================================================
+   HERO — Two-column editorial text block
+   ============================================================ */
+.desafio-hero {
+  width: 100%;
+  padding-top: clamp(7rem, 14vh, 12rem);
+  padding-bottom: 0;
+  padding-inline: clamp(1.5rem, 4vw, 4rem);
+  max-width: var(--max-width);
+  margin-inline: auto;
+}
+
+/* Two-column grid matching reference: ~28% left / ~72% right */
+.desafio-hero-grid {
+  display: grid;
+  grid-template-columns: 28fr 72fr;
+  gap: clamp(2rem, 5vw, 6rem);
+  align-items: start;
+  padding-bottom: clamp(3rem, 6vh, 5rem);
+}
+
+/* ── Left column: eyebrow / muted tagline ── */
+.desafio-hero-left {
+  padding-top: calc(0.75rem + clamp(2rem, 5vh, 4rem));
+}
+
+.desafio-eyebrow {
+  font-family: var(--font-body);
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--color-muted);
+  margin: 0;
+  max-width: 24ch;
+  letter-spacing: 0.01em;
+}
+
+/* ── Right column: headline + body ── */
+.desafio-hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vh, 2.5rem);
+}
+
+.desafio-display-title {
+  font-family: var(--font-display);
+  font-size: clamp(4rem, 8vw, 8rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  color: var(--color-ink);
+  margin: 0;
+  padding-top: clamp(2rem, 5vh, 4rem);
+  text-transform: uppercase;
+  word-break: break-word;
+}
+
+.desafio-body-text {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.15vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--color-ink);
+  max-width: 68ch;
+}
+
+.desafio-body-text p {
+  margin: 0;
+}
+
+.desafio-body-text p + p {
+  margin-top: 1.25rem;
+}
+
+.desafio-body-text a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.18s ease;
+}
+
+.desafio-body-text a:hover {
+  opacity: 0.65;
+}
+
+/* ============================================================
+   FULL-WIDTH IMAGE BLOCK — Matches reference bottom half
+   ============================================================ */
+.desafio-image-block {
+  width: 100%;
+  height: clamp(38vh, 45vh, 52vh);
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+.desafio-image-block img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Bottom overlay bar on image — phase label + scroll hint */
+.desafio-image-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem clamp(1.5rem, 4vw, 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.38) 0%, transparent 100%);
+}
+
+.desafio-image-label {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.desafio-scroll-hint {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.55);
+  font-style: italic;
+}
+
+/* ============================================================
+   RESOLUTION SECTION — Below the image, standard scroll
+   ============================================================ */
+.desafio-resolution {
+  background: #ffffff;
+  padding-block: clamp(5rem, 10vh, 8rem);
+}
+
+.desafio-resolution-inner {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 4vw, 4rem);
+}
+
+/* Section label */
+.desafio-section-label {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.35;
+  margin-bottom: 3.5rem;
+  display: block;
+}
+
+/* Resolution card — matching the editorial step layout */
+.desafio-res-card {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: clamp(3rem, 6vw, 7rem);
+  align-items: start;
+  padding-bottom: clamp(4rem, 8vh, 6rem);
+}
+
+.desafio-res-left {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  position: sticky;
+  top: 7rem;
+}
+
+.desafio-res-step-num {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent-orange);
+  opacity: 0.8;
+}
+
+.desafio-res-heading {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--color-ink);
+  margin: 0;
+}
+
+.desafio-res-right {
+  padding-top: 0.5rem;
+}
+
+.desafio-res-body {
+  font-family: var(--font-body);
+  font-size: clamp(0.9rem, 1.1vw, 1rem);
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--color-muted);
+  max-width: 65ch;
+}
+
+.desafio-res-body p {
+  margin: 0;
+}
+
+.desafio-res-body p + p {
+  margin-top: 1rem;
+}
+
+/* ── Resolution image (Paso 01 image) ── */
+.desafio-res-image {
+  margin-top: 2.5rem;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 0.5rem;
+}
+
+.desafio-res-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.6s var(--ease-editorial);
+}
+
+.desafio-res-image:hover img {
+  transform: scale(1.02);
+}
+
+/* ============================================================
+   NEXT PHASE FOOTER
+   ============================================================ */
+.desafio-next {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 4vw, 4rem);
+  padding-block: clamp(3rem, 6vh, 5rem);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 2rem;
+}
+
+.desafio-next-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--color-ink);
+  opacity: 0.1;
+}
+
+.desafio-next-link {
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  text-decoration: none;
+  opacity: 0.55;
+  transition: opacity 0.2s ease, gap 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+
+.desafio-next-link:hover {
+  opacity: 1;
+  gap: 0.9rem;
+}
+
+/* ============================================================
+   PHASE DIVIDER — Transition between DESAFÍO and INVESTIGACIÓN
+   ============================================================ */
+.desafio-phase-divider {
+  background: var(--color-bg);
+  padding-block: clamp(4rem, 8vh, 7rem);
+}
+
+.desafio-phase-divider-inner {
+  max-width: var(--max-width);
+  margin-inline: auto;
+  padding-inline: clamp(1.5rem, 4vw, 4rem);
+}
+
+.desafio-phase-divider-rule {
+  width: 100%;
+  height: 1px;
+  background: var(--color-ink);
+  opacity: 0.1;
+  margin-bottom: 2.5rem;
+}
+
+.desafio-phase-divider-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.desafio-phase-divider-label {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-ink);
+  opacity: 0.3;
+  white-space: nowrap;
+}
+
+.desafio-phase-divider-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+/* Secondary section title (h2) — slightly smaller than the hero h1 */
+.desafio-display-title--section {
+  font-size: clamp(3rem, 6.5vw, 6.5rem);
+}
+
+/* INVESTIGACIÓN hero shares the same hero class but has extra top padding
+   since there's no fixed topbar pushing it down */
+.desafio-investigacion-hero {
+  padding-top: clamp(1rem, 2vh, 2rem);
+}
+
+/* ============================================================
+   ANIMATIONS
+   ============================================================ */
+@keyframes desafio-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes desafio-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .desafio-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .desafio-hero-left {
+    padding-top: 0;
+  }
+
+  .desafio-display-title {
+    padding-top: 1rem;
+  }
+
+  .desafio-eyebrow {
+    max-width: 100%;
+  }
+
+  .desafio-res-card {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .desafio-res-left {
+    position: static;
+  }
+
+  .desafio-topbar {
+    padding: 1.25rem clamp(1rem, 4vw, 2rem);
+  }
+
+  .desafio-image-block {
+    height: 35vh;
+  }
+}
+
+@media (max-width: 480px) {
+  .desafio-display-title {
+    font-size: clamp(3rem, 14vw, 5rem);
+  }
+
+  .desafio-pills {
+    display: none;
+  }
+}

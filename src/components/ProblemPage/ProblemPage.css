@@ -1,0 +1,619 @@
+/* ============================================================
+   PROBLEM PAGE — Form & Found × Swiss Editorial Layout
+   ============================================================ */
+
+/* ── Design Tokens ── */
+:root {
+  --pp-yellow:    #F5E642;
+  --pp-magenta:   #FF2D78;
+  --pp-periwinkle:#6B7FFF;
+  --pp-lime:      #A8FF3E;
+  --pp-coral:     #FF6B4A;
+  --pp-rose:      #FFB3C6;
+  --pp-ink:       #111111;
+  --pp-cream:     #FAFAF7;
+  --pp-white:     #FFFFFF;
+  --pp-off:       #F0F0ED;
+
+  --pp-font-heavy: 'Inter', sans-serif;
+  --pp-font-body:  'Inter', sans-serif;
+
+  --pp-ease-out:   cubic-bezier(0.16, 1, 0.3, 1);
+  --pp-ease-back:  cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* step slide split */
+  --pp-anim-split: 62%;
+}
+
+/* ============================================================
+   ROOT
+   ============================================================ */
+.pp-root {
+  background: var(--pp-cream);
+  color: var(--pp-ink);
+  font-family: var(--pp-font-body);
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  transition: background 0.6s var(--pp-ease-out), color 0.6s var(--pp-ease-out);
+}
+
+/* ============================================================
+   TOP BAR — Fixed navbar: Volver + Theory pills
+   ============================================================ */
+.pp-topbar {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem clamp(1.5rem, 4vw, 4rem);
+  background: transparent;
+  pointer-events: none;
+  mix-blend-mode: difference;
+}
+
+.pp-topbar > * {
+  pointer-events: auto;
+}
+
+.pp-topbar-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* ── Volver button ── */
+.pp-volver-wrap {
+  flex-shrink: 0;
+}
+
+.pp-volver-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-family: var(--pp-font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #ffffff;
+  text-decoration: none;
+  opacity: 0.45;
+  transition: opacity 0.18s ease, gap 0.18s ease;
+}
+
+.pp-volver-btn:hover {
+  opacity: 1;
+  gap: 0.7rem;
+}
+
+.pp-volver-arrow {
+  font-size: 1em;
+  line-height: 1;
+  transition: transform 0.18s ease;
+}
+
+.pp-volver-btn:hover .pp-volver-arrow {
+  transform: translateX(-3px);
+}
+
+/* ── Theory pills ── */
+.pp-hero-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  background: transparent;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  transition: transform 0.18s var(--pp-ease-back), box-shadow 0.18s ease, opacity 0.18s ease;
+  opacity: 0.65;
+  cursor: default;
+}
+
+.pp-hero-pill:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(255, 255, 255, 0.15);
+}
+
+/* ============================================================
+   HERO EDITORIAL — Two-column: eyebrow left / title+approach right
+   ============================================================ */
+.pp-hero-editorial {
+  padding-top: clamp(3rem, 6vh, 6rem);
+  padding-bottom: 0;
+  padding-inline: clamp(1.5rem, 4vw, 4rem);
+  max-width: var(--max-width);
+  margin-inline: auto;
+  scroll-snap-align: start;
+}
+
+/* Two-column grid: ~28% left / ~72% right */
+.pp-hero-editorial-grid {
+  display: grid;
+  grid-template-columns: 28fr 72fr;
+  gap: clamp(2rem, 5vw, 6rem);
+  align-items: start;
+  padding-bottom: clamp(3rem, 6vh, 5rem);
+}
+
+/* Left column — muted eyebrow tagline */
+.pp-hero-editorial-left {
+  padding-top: calc(0.75rem + clamp(2rem, 5vh, 4rem));
+}
+
+.pp-hero-editorial-eyebrow {
+  font-family: var(--pp-font-body);
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--color-muted, #666666);
+  margin: 0;
+  max-width: 24ch;
+  letter-spacing: 0.01em;
+}
+
+/* Right column — title + body */
+.pp-hero-editorial-right {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1.5rem, 3vh, 2.5rem);
+}
+
+.pp-hero-editorial-title {
+  font-family: var(--pp-font-heavy);
+  font-size: clamp(4rem, 8vw, 8rem);
+  font-weight: 900;
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  color: var(--pp-ink);
+  margin: 0;
+  padding-top: clamp(2rem, 5vh, 4rem);
+  text-transform: uppercase;
+  word-break: break-word;
+}
+
+.pp-hero-editorial-body {
+  font-family: var(--pp-font-body);
+  font-size: clamp(0.9rem, 1.15vw, 1.05rem);
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--pp-ink);
+  max-width: 68ch;
+}
+
+.pp-hero-editorial-body p {
+  margin: 0;
+}
+
+.pp-hero-editorial-body p + p {
+  margin-top: 1.25rem;
+}
+
+.pp-hero-editorial-body a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: opacity 0.18s ease;
+}
+
+.pp-hero-editorial-body a:hover {
+  opacity: 0.65;
+}
+
+.pp-hero-editorial-body strong {
+  color: var(--pp-ink);
+  font-weight: 600;
+}
+
+/* ============================================================
+   FULL-WIDTH MEDIA BLOCK — Video below the editorial text
+   ============================================================ */
+.pp-hero-media {
+  width: 100%;
+  height: clamp(38vh, 45vh, 52vh);
+  position: relative;
+  overflow: hidden;
+  display: block;
+}
+
+.pp-hero-media-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem clamp(1.5rem, 4vw, 4rem);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.38) 0%, transparent 100%);
+}
+
+.pp-hero-media-label {
+  font-family: var(--pp-font-body);
+  font-size: 0.65rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.pp-hero-media-hint {
+  font-family: var(--pp-font-body);
+  font-size: 0.65rem;
+  font-weight: 400;
+  letter-spacing: 0.06em;
+  color: rgba(255, 255, 255, 0.55);
+  font-style: italic;
+}
+
+/* ============================================================
+   RESOLUTION SECTION
+   ============================================================ */
+.pp-resolution {
+  position: relative;
+}
+
+.pp-resolution-inner {
+  position: relative;
+  z-index: 1;
+}
+
+.pp-resolution-label-row {
+  display: none;
+}
+
+.pp-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  color: inherit;
+}
+
+/* ============================================================
+   STEP SLIDE — Full-screen Presentation Layout
+   Upper: dark animation zone
+   Lower: description → /number  title
+   ============================================================ */
+.pp-step {
+  position: relative;
+  height: 100vh;
+  min-height: 600px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  scroll-snap-align: start;
+  transition: opacity 0.6s var(--pp-ease-out), transform 0.6s var(--pp-ease-out);
+  opacity: 0.15;
+  transform: scale(0.96);
+  background: var(--pp-cream);
+}
+
+.pp-step.pp-active-slide {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.pp-step:last-child {
+  border-bottom: none;
+}
+
+/* ── Upper dark animation zone ── */
+.pp-step-anim-rect {
+  position: relative;
+  flex: 0 0 var(--pp-anim-split);
+  width: 100%;
+  background: #0a0a0a;
+  overflow: hidden;
+}
+
+.pp-step-anim-rect:not(:has(*)):empty {
+  background: #0a0a0a;
+}
+
+/* ── Lower content zone (below the animation) ── */
+.pp-step-lower {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 2rem clamp(2rem, 5vw, 5rem) 2.25rem;
+  position: relative;
+  background: var(--pp-cream);
+  gap: 0.5rem;
+}
+
+/* Description text */
+.pp-step-body {
+  position: relative;
+  z-index: 2;
+  color: rgba(17, 17, 17, 0.72);
+  line-height: 1.65;
+  font-size: clamp(0.9rem, 1.15vw, 1.1rem);
+  font-weight: 400;
+  max-width: 64ch;
+  margin-bottom: 1.25rem;
+}
+
+.pp-step-body p { margin: 0; }
+.pp-step-body p + p { margin-top: 0.75rem; }
+.pp-step-body strong { color: var(--pp-ink); font-weight: 600; }
+
+.pp-step-body .katex { font-size: 0.95em; }
+.pp-step-body .katex-display { margin: 0.5rem 0; font-size: 0.88em; }
+
+/* ── Number + Title row ── */
+.pp-step-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1rem, 2vw, 2rem);
+  line-height: 0.95;
+}
+
+.pp-step-num-col {
+  display: flex;
+  align-items: baseline;
+  flex-shrink: 0;
+}
+
+.pp-step-num-circle {
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--pp-ink);
+  user-select: none;
+  display: inline-flex;
+  gap: 0.75rem;
+  align-items: center;
+  text-transform: none;
+}
+
+.pp-step-num-circle::before {
+  content: '•';
+  font-size: 1.2em;
+  line-height: 1;
+  color: inherit;
+}
+
+/* Category label — inside anim rect overlay */
+.pp-step-category {
+  display: none;
+  position: absolute;
+  top: 1.75rem;
+  left: clamp(2rem, 5vw, 5rem);
+  font-family: var(--font-body, 'Inter', sans-serif);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.38);
+  margin: 0;
+  z-index: 10;
+}
+
+.pp-step-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-width: 0;
+  flex: 1;
+}
+
+.pp-step-heading {
+  font-family: var(--pp-font-heavy);
+  font-size: clamp(2rem, 4.5vw, 5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+  color: var(--pp-ink);
+  margin: 0;
+  word-break: break-word;
+}
+
+/* Code blocks inside steps */
+.pp-step pre {
+  font-family: 'JetBrains Mono', 'Fira Code', 'Menlo', monospace !important;
+  font-size: 0.7rem !important;
+  line-height: 1.65 !important;
+  color: #d4d4d4 !important;
+  background: #141414 !important;
+  border: none !important;
+  border-left: 2px solid var(--step-accent, #fff) !important;
+  padding: 1.1rem 1.5rem !important;
+  border-radius: 0 4px 4px 0 !important;
+  overflow-x: auto !important;
+  margin: 0 !important;
+  white-space: pre !important;
+  max-height: 100%;
+}
+
+/* ── Data tables inside steps ── */
+.pp-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin-top: 0.5rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+.pp-table thead th {
+  padding: 0.6rem 1rem;
+  text-align: left;
+  font-size: 0.52rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.pp-table tbody td {
+  padding: 0.6rem 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.75);
+  line-height: 1.5;
+}
+.pp-table tbody tr:last-child td { border-bottom: none; }
+.pp-table tfoot td {
+  padding: 0.6rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  font-weight: 700;
+  color: #fff;
+}
+.pp-table tbody td:first-child {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ── KaTeX inside dark anim rect ── */
+.pp-step-anim-rect .katex-display {
+  margin: 0.75rem 0;
+  overflow-x: auto;
+  color: #fff;
+}
+.pp-step-anim-rect .katex {
+  font-size: 1em;
+  color: #fff;
+}
+
+/* ── DFS node row ── */
+.pp-dfs-nodes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.75rem;
+}
+.pp-dfs-node-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.pp-dfs-node {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--pp-font-heavy);
+  font-size: 0.9rem;
+  font-weight: 800;
+  transition: transform 0.18s var(--pp-ease-back);
+  cursor: default;
+}
+.pp-dfs-node:hover { transform: scale(1.15); }
+.pp-dfs-arrow {
+  font-size: 0.65rem;
+  opacity: 0.3;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ── Two-col grid inside step body ── */
+.pp-step-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* ============================================================
+   PRESENTATION MODE NAVIGATION (HUD)
+   ============================================================ */
+.pp-hud-counter {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  font-family: var(--pp-font-heavy);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--pp-ink);
+  z-index: 100;
+  opacity: 0.45;
+}
+
+/* ============================================================
+   STAGGERED ENTRY ANIMATIONS
+   ============================================================ */
+.pp-step.pp-active-slide .pp-step-anim-rect    { animation: slideUpFade 1s var(--pp-ease-out) forwards; animation-delay: 0s;    opacity: 0; }
+.pp-step.pp-active-slide .pp-step-category     { animation: slideUpFade 0.7s var(--pp-ease-out) forwards; animation-delay: 0.2s; opacity: 0; }
+.pp-step.pp-active-slide .pp-step-body         { animation: slideUpFade 0.8s var(--pp-ease-out) forwards; animation-delay: 0.25s; opacity: 0; }
+.pp-step.pp-active-slide .pp-step-num-circle   { animation: slideUpFade 0.9s var(--pp-ease-out) forwards; animation-delay: 0.35s; opacity: 0; }
+.pp-step.pp-active-slide .pp-step-heading      { animation: slideUpFade 0.9s var(--pp-ease-out) forwards; animation-delay: 0.42s; opacity: 0; }
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes pp-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-10px); }
+}
+@keyframes pp-float-simple {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes pp-fade-up {
+  from { opacity: 0; transform: translateY(10px) translateX(-50%); }
+  to   { opacity: 1; transform: translateY(0) translateX(-50%); }
+}
+@keyframes pp-scale-in {
+  from { opacity: 0; transform: scale(0.92); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+/* ── KaTeX overrides inside pp ── */
+.pp-root .katex-display {
+  margin: 1.5rem 0;
+  overflow-x: auto;
+}
+.pp-root .katex {
+  font-size: 1.05em;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  :root { --pp-anim-split: 50%; }
+
+  .pp-hero-editorial-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .pp-hero-editorial-left {
+    padding-top: 0;
+  }
+
+  .pp-hero-editorial-title {
+    padding-top: 1rem;
+  }
+
+  .pp-hero-editorial-eyebrow {
+    max-width: 100%;
+  }
+
+  .pp-step-heading {
+    font-size: clamp(2rem, 8vw, 4rem);
+  }
+
+  .pp-step-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pp-topbar-pills {
+    display: none;
+  }
+}
