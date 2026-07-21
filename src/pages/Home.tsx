@@ -8,6 +8,7 @@ type ViewerConfig =
   | { type: 'image'; src: string }
   | { type: 'gallery'; src: string[] }
   | { type: 'video'; src: string }
+  | { type: 'vimeo'; src: string }
   | { type: 'figma'; src: string; externalUrl: string }
 
 interface Deliverable {
