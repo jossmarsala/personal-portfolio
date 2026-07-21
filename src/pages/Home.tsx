@@ -119,7 +119,7 @@ const deliverables: Deliverable[] = [
     cover: '/images/ENTREGABLES-06.png',
     coverType: 'image',
     aspectRatio: '16 / 9',
-    viewer: { type: 'image', src: '/images/ENTREGABLES-06.png' },
+    viewer: { type: 'vimeo', src: 'https://player.vimeo.com/video/1211538026?badge=0&autopause=0&player_id=0&app_id=58479' },
   },
 ]
 
@@ -1073,9 +1073,11 @@ function DeliverableViewer({
       ? '75vh'
       : item.viewer.type === 'video'
         ? 'auto'
-        : item.viewer.type === 'figma'
-          ? '85vh'
-          : '75vh'
+        : item.viewer.type === 'vimeo'
+          ? '75vh'
+          : item.viewer.type === 'figma'
+            ? '85vh'
+            : '75vh'
 
   return (
     <>
@@ -1232,6 +1234,25 @@ function DeliverableViewer({
                   display: 'block',
                 }}
               />
+            )}
+
+            {item.viewer.type === 'vimeo' && (
+              <div style={{ position: 'relative', width: '100%', paddingTop: '56.25%' }}>
+                <iframe
+                  src={item.viewer.src}
+                  title={item.title}
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media"
+                  allowFullScreen
+                  style={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    border: 'none',
+                  }}
+                />
+              </div>
             )}
 
             {item.viewer.type === 'gallery' && (
