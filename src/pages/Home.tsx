@@ -141,6 +141,8 @@ export default function Home() {
         }
       }, 100)
       return () => clearTimeout(timer)
+    } else {
+      window.scrollTo({ top: 0, behavior: 'instant' })
     }
   }, [location])
 
