@@ -338,6 +338,7 @@ export default function ProblemPage(props: ProblemPageProps) {
             >
               <Link
                 to={nextPhasePath}
+                state={{ scrollToDeliverables: nextPhasePath.includes('#deliverables-gallery') }}
                 className="nav-link"
                 style={{
                   background: 'none',

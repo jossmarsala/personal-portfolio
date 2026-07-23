@@ -133,7 +133,7 @@ export default function Home() {
   const location = useLocation()
 
   useEffect(() => {
-    if (location.hash === '#deliverables-gallery') {
+    if (location.state && (location.state as any).scrollToDeliverables) {
       const timer = setTimeout(() => {
         const element = document.getElementById('deliverables-gallery')
         if (element) {
