@@ -912,7 +912,7 @@ function MasonryCard({
           </div>
 
           {/* Video badge */}
-          {(item.viewer.type === 'video') && (
+          {(item.viewer.type === 'video' || item.viewer.type === 'vimeo') && (
             <div
               style={{
                 position: 'absolute',
