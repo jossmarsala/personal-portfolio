@@ -127,13 +127,21 @@ const deliverables: Deliverable[] = [
 // Named refs for explicit column placement
 const [dBrandBook, dCampana, dBumper, dProto, dLogo, dPitch] = deliverables
 
+const processedScrollKeys = new Set<string>()
+
 // ── Home Page ──────────────────────────────────────────────────
 export default function Home() {
   const [activeViewer, setActiveViewer] = useState<{ item: Deliverable } | null>(null)
   const location = useLocation()
 
   useEffect(() => {
-    if (location.state && (location.state as any).scrollToDeliverables) {
+    if (
+      location.state &&
+      (location.state as any).scrollToDeliverables &&
+      !processedScrollKeys.has(location.key)
+    ) {
+      processedScrollKeys.add(location.key)
+
       const timer = setTimeout(() => {
         const element = document.getElementById('deliverables-gallery')
         if (element) {
@@ -141,8 +149,6 @@ export default function Home() {
         }
       }, 100)
       return () => clearTimeout(timer)
-    } else {
-      window.scrollTo({ top: 0, behavior: 'instant' })
     }
   }, [location])
 
